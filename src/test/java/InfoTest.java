@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 
 public class InfoTest {
 
@@ -12,8 +13,10 @@ public class InfoTest {
         /**
          * 这是登录的学号和密码
          * */
-        String j_username = "2017xxxxxxxxx";
-        String j_password = "123456";
+        Properties prop = new Properties();
+        prop.load(TableTest.class.getResourceAsStream("/UserInfo.properties"));
+        String j_username = prop.getProperty("j_username");
+        String j_password = prop.getProperty("j_password");
 
         UserDao userDao = new UserDao();
         if (App.cookies == null) {

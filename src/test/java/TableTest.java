@@ -5,14 +5,17 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class TableTest {
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         /**
          * 这是登录的学号和密码
          * */
-        String j_username = "2017xxxxxxxxx";
-        String j_password = "123456";
+        Properties prop = new Properties();
+        prop.load(TableTest.class.getResourceAsStream("/UserInfo.properties"));
+        String j_username = prop.getProperty("j_username");
+        String j_password = prop.getProperty("j_password");
 
         TableDao tableDao = new TableDao();
         if (App.cookies == null) {
