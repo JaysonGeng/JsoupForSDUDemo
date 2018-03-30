@@ -1,4 +1,5 @@
 import Dao.TableDao;
+import Util.App;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -14,23 +15,27 @@ public class TableTest {
         String j_password = "123456";
 
         TableDao tableDao = new TableDao();
-
-        ArrayList<JSONObject> tables = tableDao.getTable(j_username, j_password);
-
-        String[] header = {"序号", "课程号", "课程名称", "课序号", "学分", "课程属性"
-                , "开课学院", "任课教师", "上课周次", "上课星期", "上课节次", "上课地点"};
-        for (String s : header) {
-            System.out.print(s + "\t");
+        if (App.cookies == null) {
+            App.cookies = App.getCookies(j_username, j_password);
         }
-        System.out.println();
-        for (JSONObject j : tables) {
-            if (!j.toString().equals("{}")) {
-                for (int i = 0; i < 12; i++) {
-                    System.out.print(j.getString(header[i]) + "\t");
+        if (!App.cookies.equals("xe0001")) {
 
-                }
+            ArrayList<JSONObject> tables = tableDao.getTable(App.cookies);
+            String[] header = {"序号", "课程号", "课程名称", "课序号", "学分", "课程属性"
+                    , "开课学院", "任课教师", "上课周次", "上课星期", "上课节次", "上课地点"};
+            for (String s : header) {
+                System.out.print(s + "\t");
             }
             System.out.println();
+            for (JSONObject j : tables) {
+                if (!j.toString().equals("{}")) {
+                    for (int i = 0; i < 12; i++) {
+                        System.out.print(j.getString(header[i]) + "\t");
+
+                    }
+                }
+                System.out.println();
+            }
         }
     }
 }

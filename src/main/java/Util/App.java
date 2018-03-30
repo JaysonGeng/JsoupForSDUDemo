@@ -24,10 +24,19 @@ public class App {
                 .ignoreContentType(true)
                 .userAgent("Mozilla/5.0 (X11; Linux x86_64…) Gecko/20100101 Firefox/59.0")
                 .header("Referer", "http://bkjws.sdu.edu.cn/").execute();
-        cookies = response.cookies().toString();
-        cookies = cookies.substring(cookies.indexOf("{") + 1, cookies.lastIndexOf("}"));
-        System.out.println(cookies);
-        return String.valueOf(cookies);
+        if (response.statusCode() == 200) {
+            String res = response.body();
+            if (res.contains("success")) {
+                cookies = response.cookies().toString();
+                cookies = cookies.substring(cookies.indexOf("{") + 1, cookies.lastIndexOf("}"));
+                System.out.println(cookies);
+                return String.valueOf(cookies);
+            }else {
+                System.out.println(res);
+            }
+        }
+
+        return "xe0001";
     }
 
     public static String goHttp(String url, String cookie) throws IOException, NoSuchAlgorithmException {

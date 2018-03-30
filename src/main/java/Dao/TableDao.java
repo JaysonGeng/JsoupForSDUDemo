@@ -15,11 +15,9 @@ import java.util.ArrayList;
 
 public class TableDao {
     ArrayList<JSONObject> jtable =new ArrayList<JSONObject>();
-    public ArrayList<JSONObject> getTable(String j_username, String j_password) throws IOException, NoSuchAlgorithmException {
-        if (App.cookies == null) {
-            App.cookies = App.getCookies(j_username, j_password);
-        }
-        String tables = App.getTable(App.cookies);
+    public ArrayList<JSONObject> getTable(String cookies) throws IOException, NoSuchAlgorithmException {
+
+        String tables = App.getTable(cookies);
         Document doc = Jsoup.parse(tables);
         // 根据id获取table
         Element table = doc.getElementById("ysjddDataTableId");

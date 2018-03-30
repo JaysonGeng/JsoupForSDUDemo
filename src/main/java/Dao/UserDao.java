@@ -9,11 +9,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class UserDao {
 
-    public User getUser(String j_username, String j_password) throws IOException, NoSuchAlgorithmException {
-        if (App.cookies == null) {
-            App.cookies = App.getCookies(j_username, j_password);
-        }
-        JSONObject info = App.getinfo(App.cookies);
+    public User getUser(String cookies) throws IOException, NoSuchAlgorithmException {
+
+        JSONObject info = App.getinfo(cookies);
         User user = new User();
         user.setId(info.getString("id"));
         user.setXm(info.getString("xm"));
